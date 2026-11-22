@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: maison-elan-store
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: luxury-fashion-store
+    rootDir: maison-elan
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: luxury-fashion-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
